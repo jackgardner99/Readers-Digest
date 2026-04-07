@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .category import Category
 
 class Book(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="books_created")
@@ -8,7 +9,7 @@ class Book(models.Model):
     isbn_number = models.CharField(max_length=13, null=True, blank=True)
     cover_image = models.URLField(null=True, blank=True)
     categories = models.ManyToManyField(
-        "Category",
+        Category,
         through='BookCategory',
         related_name="books"
     )
