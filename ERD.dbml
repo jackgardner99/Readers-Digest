@@ -8,7 +8,7 @@ Table Users {
 
 Table Categories {
     id int [pk]
-    name varchar
+    label varchar
 }
 
 Table Books {
