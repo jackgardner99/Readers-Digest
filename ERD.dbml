@@ -1,0 +1,26 @@
+Table Users {
+    id int [pk]
+    name varchar
+    email varchar
+    password varchar
+    authentication boolean
+}
+
+Table Categories {
+    id int [pk]
+    name varchar
+}
+
+Table Books {
+    id int [pk]
+    title varchar
+    author varchar 
+    ISBN_number int
+    cover_image url
+    auth_user int [ref: > Users.id]
+}
+
+Table BookCategory {
+    category_id int [ref: > Categories.id]
+    book_id int [ref: > Books.id]
+}

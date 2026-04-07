@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "detailLevel": "All",
+  "tablePositions": [
+    {
+      "name": "Users",
+      "schemaName": "public",
+      "x": 338.27929687499994,
+      "y": 95.7744140625
+    },
+    {
+      "name": "Categories",
+      "schemaName": "public",
+      "x": 166.3212890625,
+      "y": -96.12060546874994
+    },
+    {
+      "name": "Books",
+      "schemaName": "public",
+      "x": 759.4584960937501,
+      "y": -27.682617187499943
+    },
+    {
+      "name": "BookCategory",
+      "schemaName": "public",
+      "x": 470.81005859375006,
+      "y": -76.18359375000034
+    }
+  ],
+  "tableGroupCollapseStates": [],
+  "stickyNoteLayouts": [],
+  "referencePaths": []
+}
