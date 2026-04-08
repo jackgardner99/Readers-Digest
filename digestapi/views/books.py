@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework import serializers
 from digestapi.models import Book
-from .categories import CategorySerializer
+from .categories import CategorySerializer, Category
 
 class BookSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
@@ -15,6 +15,14 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['id', 'title', 'author', 'isbn_number', 'cover_image', 'is_owner', 'categories']
+
+class BookWriteSerializer(serializers.ModelSerializer):
+    categories = serializers.ListField(child=serializers.PrimaryKeyRelatedField(queryset=Category.objects.all()), required=False)
+
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'isbn_number', 'cover_image', 'categories']
+
 
 class BookViewSet(viewsets.ViewSet):
 
@@ -63,7 +71,7 @@ class BookViewSet(viewsets.ViewSet):
             # Is the authenticated user allowed to edit this book?
             self.check_object_permissions(request, book)
 
-            serializer = BookSerializer(data=request.data)
+            serializer = BookWriteSerializer(data=request.data)
             if serializer.is_valid():
                 book.title = serializer.validated_data['title']
                 book.author = serializer.validated_data['author']
@@ -75,7 +83,7 @@ class BookViewSet(viewsets.ViewSet):
                 book.categories.set(category_ids)
 
                 serializer = BookSerializer(book, context={'request': request})
-                return Response(serializer.errors, status.HTTP_204_NO_CONTENT)
+                return Response(status=status.HTTP_204_NO_CONTENT)
             
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
         
